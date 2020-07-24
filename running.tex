@@ -1,0 +1,99 @@
+\documentclass[11pt, oneside]{article}   	
+\usepackage[margin=1in]{geometry}             		
+\geometry{letterpaper}                   		
+\usepackage{graphicx}					
+\usepackage{amssymb}
+\usepackage{amsmath}
+\numberwithin{equation}{subsection}
+\renewcommand{\thesection}{\arabic{section}.}
+\renewcommand{\thesubsection}{-}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{subcaption}
+\usepackage{graphicx}
+%Change me (below) to your graphics directory!!!
+%\graphicspath{{electric_meter_data/}}
+\graphicspath{{.}} 
+\usepackage{xcolor,colortbl}
+
+\usepackage{tabularx}
+
+\usepackage{fancyhdr}
+
+\usepackage[parfill]{parskip}
+\setlength{\headheight}{15.2pt}
+
+
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[C]{\thepage} % except the center
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyhead[l]{Alex Coy, ac2456}
+\fancyhead[c]{Running jacktrip for CUWS}
+\fancyhead[r]{Page \thepage \hspace{1pt} of \pageref{LastPage}\qquad \qquad Summer 2020}
+}
+
+
+
+%These aren't used. I made this template though because I was bored and concerned that excel wouldn't format correctly.
+\title{ECE Lab Template}
+\author{Alex Coy}							
+
+\fancyhead[l]{Alex Coy, ac2456}
+\fancyhead[c]{Running jacktrip for CUWS}
+\fancyhead[r]{Page \thepage \hspace{1pt} of \pageref{LastPage}\qquad \qquad Summer 2020}
+
+\begin{document}
+\pagestyle{fancy}
+
+\section{Running Jacktrip}
+At the moment, I have run jack and jacktrip as user processes. The difficulty
+presented here is that user processes usually disappear upon logout or
+connection loss. One common way around that is to use GNU screen. Simply
+type
+\begin{verbatim}
+screen
+\end{verbatim}
+to begin a new screen session. To detach from a screen session (so you can
+log off), you must first press Control-a, then press d. That will detach
+you from your screen session, and a message will show that you detached.
+To re-attach, use 
+\begin{verbatim}
+screen -r
+\end{verbatim}
+
+Jack is already installed for all server users. However, it is problematic
+if jack is already running from another jacktrip admin; multiple jack servers
+might confuse our computer. To check if jack is running, use:
+\begin{verbatim}
+ps -e | grep jack
+\end{verbatim}
+Jackd and jacktrip will appear if they are running, similar to below.
+\begin{verbatim}
+$ ps -e | grep jack
+ 9926 pts/2    00:00:00 jackd
+\end{verbatim}
+Server administrators can kill another user's jackd and jacktrip processes with
+\begin{verbatim}
+sudo pkill jacktrip
+\end{verbatim}
+or
+\begin{verbatim}
+sudo kill <PID>
+\end{verbatim}
+The PID of jackd is 9926 in the above ps reading.
+If jackd is not running, first confirm that you're in a screen session.
+Start jackd with
+\begin{verbatim}
+jackd -d dummy -r 48000 -p 64 &
+\end{verbatim}
+Start jacktrip with
+\begin{verbatim}
+jacktrip -S -z -q 12 -p 4
+\end{verbatim}
+During a production run, it is more useful to run with -p 2 so that participants
+only hear the others. I will update this document with more strategies as we
+find them.
+
+\end{document}  
