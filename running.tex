@@ -96,4 +96,35 @@ During a production run, it is more useful to run with -p 2 so that participants
 only hear the others. I will update this document with more strategies as we
 find them.
 
+\section{Other jack utilities}
+I installed a few useful utilities. I advise running these in their own screen
+sessions. You can give names to your screen sessions when starting them. See:
+\begin{verbatim}
+screen -S jacktrip
+\end{verbatim}
+You could detach and then re-attach with
+\begin{verbatim}
+screen -r jacktrip
+\end{verbatim}
+If you are in an existing screen session, you can ctrl-a then
+": sessionname your\_name\_here" to rename the screen session.
+\subsection{jack\_capture}
+Jack\_capture is a very basic recording program. It doesn't look like there's
+a way to make it capture jacktrip stuff automatically, so I installed another
+program. Most likely, you'll want to start jack\_capture as
+\begin{verbatim}
+jack_capture --manual-connections -c <number>
+\end{verbatim}
+which sets up a recorder for $<$number$>$ channels of audio, which you can edit
+later.
+
+\subsection{njconnect}
+Njconnect is a terminal-based connection-maker for jack. It's similar to
+qjackctl (Jack Control on Windows), except it doesn't require any sort of
+graphical interface. Just use "njconnect" to start it after jack and possibly
+jacktrip and jack\_capture are running. Press "a" to see the server's audio
+connections. Use the arrow keys to navigate inputs, outputs, and existing
+connections. Highlight an input/output pair and press "c" to connect. Highlight
+a connection and press "d" to disconnect. Press "q" to quit.
+
 \end{document}  
